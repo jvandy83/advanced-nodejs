@@ -44,6 +44,7 @@ module.exports = (app) => {
       await blog.save();
       res.send(blog);
     } catch (err) {
+      console.log('failed to post resource');
       res.send(400, err);
     }
   });
