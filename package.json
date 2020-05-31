@@ -38,6 +38,7 @@
     "path-parser": "^6.1.0",
     "puppeteer": "^3.2.0",
     "redis": "^3.0.2",
+    "utf-8-validate": "^5.0.2",
     "uuid": "^8.1.0"
   }
 }
