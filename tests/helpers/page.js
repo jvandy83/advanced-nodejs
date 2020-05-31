@@ -1,3 +1,4 @@
+// @ts-nocheck
 const puppeteer = require('puppeteer');
 const userFactory = require('../factories/userFactory');
 const sessionFactory = require('../factories/sessionFactory');
@@ -39,6 +40,73 @@ class CustomPage {
 
   async getContentsOf(element) {
     return this.page.$eval(element, (el) => el.innerHTML);
+  }
+
+  get(path) {
+    return this.page.evaluate((_path) => {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open('GET', _path);
+
+        xhr.responseType = 'json';
+
+        xhr.setRequestHeader('credentials', 'same-site');
+
+        // xhr.setRequestHeader('Content-Type', 'application/json');
+
+        xhr.addEventListener('error', (err) => {
+          console.log(err);
+        });
+        xhr.addEventListener('load', () => {
+          resolve(xhr.response);
+        });
+
+        xhr.send();
+      });
+    }, path);
+  }
+
+  post(path, data) {
+    return this.page.evaluate(
+      (_path, _data) => {
+        return new Promise((resolve, reject) => {
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', _path);
+
+          // prepare form data
+
+          // set headers
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+          xhr.setRequestHeader('credentials', 'same-site');
+
+          // xhr.withCredentials = true;
+          xhr.responseType = 'json';
+
+          xhr.addEventListener('error', (err) => {
+            console.error(err);
+          });
+
+          // listen for `load` event
+          xhr.addEventListener('load', () => {
+            resolve(xhr.response);
+          });
+
+          // send request
+          xhr.send(JSON.stringify(_data));
+        });
+      },
+      path,
+      data
+    );
+  }
+  execActions(actions) {
+    return Promise.all(
+      actions.map(({ path, method, data }) => {
+        return this[method](path, data);
+      })
+    );
   }
 }
 

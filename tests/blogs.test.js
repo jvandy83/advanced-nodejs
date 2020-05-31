@@ -55,61 +55,31 @@ describe('When logged in', async () => {
   });
 });
 describe('User is not logged in', async () => {
+  const actions = [
+    {
+      method: 'get',
+      path: '/api/blogs',
+      data: {
+        title: 'T',
+        content: 'C'
+      }
+    },
+    {
+      method: 'post',
+      path: '/api/blogs'
+    }
+  ];
   test('User cannot create blog post', async () => {
-    const result = await page.evaluate(() => {
-      return new Promise((resolve, reject) => {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'api/blogs');
-
-        // prepare form data
-        let data = {
-          title: 'My Title',
-          content: 'My Content'
-        };
-
-        // set headers
-        // xhr.setRequestHeader('Content-Type', 'application/json');
-        // xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('credentials', 'same-site');
-
-        // xhr.withCredentials = true;
-        xhr.responseType = 'json';
-
-        xhr.addEventListener('error', (err) => {
-          console.error(err.message);
-        });
-
-        // listen for `load` event
-        xhr.addEventListener('load', () => {
-          resolve(xhr.response);
-        });
-        // send request
-        xhr.send(JSON.stringify(data));
-      }).catch((err) => console.log(err));
-    });
-    expect(result).toEqual({ error: 'You must log in!' });
+    const results = await page.execActions(actions);
+    for (let result of results) {
+      expect(result).toEqual({ error: 'You must log in!' });
+    }
   });
+
   test('User cannot get a list of all posts', async () => {
-    const result = await page.evaluate(() => {
-      return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-
-        xhr.open('GET', 'api/blogs');
-
-        xhr.responseType = 'json';
-
-        xhr.setRequestHeader('credentials', 'same-site');
-
-        xhr.addEventListener('error', (err) => {
-          console.error(err.message);
-        });
-        xhr.addEventListener('load', () => {
-          resolve(xhr.response);
-        });
-
-        xhr.send();
-      });
-    });
-    expect(result).toEqual({ error: 'You must log in!' });
+    const results = await page.execActions(actions);
+    for (let result of results) {
+      expect(result).toEqual({ error: 'You must log in!' });
+    }
   });
 });
