@@ -6,7 +6,3 @@ module.exports = {
   cookieKey: '123123123',
   redis: 'redis://127.0.0.1:6379'
 };
-
-// mongodb+srv://jared123:jared123@vanthedev-k2rxc.mongodb.net/blog_dev?retryWrites=true&w=majority
-
-// AIzaSyBbA2E_tkOxScj9zN1Z6Q56XRxJMn6kpMo
