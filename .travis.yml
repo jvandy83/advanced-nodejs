@@ -18,4 +18,6 @@ script:
   - nohup npm run start &
   - sleep 3
   - npm run test
-os: osx
+include:
+  - name: darwin
+  os: osx
