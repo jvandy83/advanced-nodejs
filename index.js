@@ -10,7 +10,8 @@ require('./models/Blog');
 require('./services/passport');
 
 mongoose.connect(keys.mongoURI, {
-  useMongoClient: true
+  useUnifiedTopology: true,
+  useNewUrlParser: true
 });
 
 const app = express();
