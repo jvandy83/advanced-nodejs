@@ -6,7 +6,8 @@
   "jest": {
     "verbose": true,
     "testURL": "http://localhost/",
-    "setupTestFrameworkScriptFile": "./tests/setup.js"
+    "setupTestFrameworkScriptFile": "./tests/setup.js",
+    "testEnvironment": "node"
   },
   "scripts": {
     "start": "node index.js",
