@@ -25,7 +25,6 @@
     "body-parser": "^1.17.2",
     "concurrently": "^3.5.0",
     "cookie-session": "^2.0.0-beta.2",
-    "debug": "^4.1.1",
     "express": "^4.15.3",
     "jest": "^22.1.4",
     "mongoose": "^5.7.5",
