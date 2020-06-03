@@ -38,13 +38,17 @@ mongoose.Query.prototype.exec = async function () {
 
   console.log('VALUE NOT FROM CACHE');
 
-  const result = await exec.apply(this, arguments);
+  try {
+    const result = await exec.apply(this, arguments);
 
-  // client.hset(this.hashKey, key, JSON.stringify(result), 'EX', 10);
+    // client.hset(this.hashKey, key, JSON.stringify(result), 'EX', 10);
 
-  // client.flushall();
+    // client.flushall();
 
-  return result;
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = {
