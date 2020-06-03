@@ -2,12 +2,11 @@ language: node_js
 node_js:
   - '8'
 dist: trusty
-sudo: required
-addons:
-  chrome: stable
 services:
   - mongodb
   - redis-server
+before_install:
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 env:
   - NODE_ENV=ci PORT=3000
 cache:
@@ -17,6 +16,8 @@ cache:
 install:
   - npm install
 script:
-  # - nohup npm run start &
-  # - sleep 3
+  - nohup npm run start &
+  - sleep 3
   - npm run test
+afterscript:
+  - npm run build
