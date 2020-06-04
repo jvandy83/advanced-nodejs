@@ -17,7 +17,7 @@ cache:
 # beforescript:
 script:
   - npm install
-  - nohup npm run start &
+  # - nohup npm run start &
   # - sleep 3
   - npm run build
   - npm run test
