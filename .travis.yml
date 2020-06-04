@@ -16,6 +16,6 @@ install:
 # beforescript:
 script:
   - npm run build
-  - npm run start
-  # - sleep 3
+  - nohup npm run start &
+  - sleep 3
   - npm run test
