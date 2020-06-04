@@ -14,10 +14,10 @@ cache:
     - client/node_modules
 # install:
 #   - npm install
-beforescript:
+# beforescript:
+script:
   - npm install
   - nohup npm run start &
   - sleep 3
   - npm run build
-script:
   - npm run test
