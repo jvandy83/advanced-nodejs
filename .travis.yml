@@ -7,16 +7,13 @@ services:
   - redis-server
 env:
   - NODE_ENV=ci PORT=3000
-install: travis_wait 20 mvn install
 cache:
   directories:
     - node_modules
     - client/node_modules
-# install:
-#   - npm install
-# beforescript:
-script:
+install:
   - npm install
+script:
   - nohup npm run start &
   - sleep 3
   - npm run build
