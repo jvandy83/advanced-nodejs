@@ -8,6 +8,7 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./models/Blog');
 require('./services/passport');
+require('./services/cache');
 
 mongoose.connect(keys.mongoURI, {
   useUnifiedTopology: true,
@@ -26,9 +27,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// This require statement resolves to a function
+// that needs to be called and passed the
+// express application stored in the app variable
+
 require('./routes/authRoutes')(app);
 require('./routes/blogRoutes')(app);
-require('./services/cache');
+require('./routes/uploadRoutes')(app);
 
 if (['production', 'ci'].includes(process.env.NODE_ENV)) {
   app.use(express.static('client/build'));
