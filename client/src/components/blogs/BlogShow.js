@@ -8,6 +8,7 @@ class BlogShow extends Component {
   }
 
   renderImage() {
+    console.log(process.env.NODE_ENV);
     return this.props.blog.imageUrl ? (
       <img
         style={{ width: '400px' }}

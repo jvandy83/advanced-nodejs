@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-module.exports = _app => {
+module.exports = (_app) => {
   _app.get(
     '/auth/google',
     passport.authenticate('google', {
